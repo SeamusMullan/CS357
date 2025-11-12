@@ -1,0 +1,85 @@
+Section CoqLab01.
+Context (A B C D : Prop).
+
+(* Implication is transitive. *)
+Lemma q1 : (A -> B) -> (B -> C) -> (A -> C).
+Proof.
+  intros.
+  apply H0.
+  apply H.
+  exact H1.
+Qed.
+
+(* Anything implies itself. *)
+Lemma q2 : A -> A.
+Proof.
+  intros.
+  exact H.
+Qed.
+
+(* Extra hypotheses can be introduced without affecting
+ * provability. *)
+Lemma q3 : A -> (B -> A).
+Proof.
+  intros.
+  exact H.
+Qed.
+
+(* The order of the hypotheses is irrelevant. *)
+Lemma q4 : (A -> B -> C) -> B -> A -> C.
+Proof.
+  intros.
+  apply H.
+  apply H1.
+  exact H0.
+Qed.
+
+(* Duplicate hypotheses can be merged. *)
+Lemma q5 : (A -> A -> B) -> A -> B.
+Proof.
+  intros.
+  apply H.
+  apply H0.
+  exact H0.
+Qed.
+
+(* Duplicate hypotheses can be introduced. *)
+Lemma q6 : (A -> B) -> A -> A -> B.
+Proof.
+  intros.
+  apply H.
+  exact H0.
+Qed.
+
+(* Diamond lemma:
+ *        A
+ *      \u2199   \u2198           A
+ *     B     C    ~>    \u2193
+ *      \u2198   \u2199           D
+ *        D
+ *)
+Lemma q7 : (A -> B) -> (A -> C) -> (B -> C -> D) -> A -> D.
+Proof.
+  intros.
+  apply H1.
+  apply H.
+  apply H2.
+  apply H0.
+  exact H2.
+Qed.
+
+(* Weak version of Peirce\u2019s law. The strong version implies
+ * LEM and therefore can\u2019t be proved in constructive logic. *)
+Lemma q8 : ((((A -> B) -> A) -> A) -> B) -> B.
+Proof.
+  intros.
+  apply H.
+  intros.
+  apply H0.
+  intros.
+  apply H.
+  intros.
+  exact H1.
+Qed.
+
+End CoqLab01.

@@ -1,0 +1,11 @@
+Read bottom to top.
+
+2x=C        // Implied from below
+x+x=C       // A
+t=x
+x+t=C       // Simplification (S)
+x-y+t+y=C
+x=x-y
+x+t+y=C     // Assignment (A)
+y=t+y
+x+y=C

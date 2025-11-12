@@ -1,0 +1,69 @@
+/**
+ * CS357 Cyclone Lab
+ * Show that a Petersen graph is not 2-colorable but 3-colorable.
+ */
+
+//produce a trace to show color at each node.
+option-trace=true;
+graph PetersonGraphColor{
+	//the number of possible colors. Range: 0 - 2.
+	const int COLOR = 2;
+
+	/* 
+	 * The following where clauses make sure each node (in the graph) 
+	 * can only be colored using 1 of the 3 colors.
+	 */
+	int color_a where color_a>=0 && color_a<=COLOR;
+	int color_b where color_b>=0 && color_b<=COLOR;
+	int color_c where color_c>=0 && color_c<=COLOR;
+	int color_d where color_d>=0 && color_d<=COLOR;
+	int color_e where color_e>=0 && color_e<=COLOR;
+	int color_f where color_f>=0 && color_f<=COLOR;
+	int color_g where color_g>=0 && color_g<=COLOR;
+	int color_h where color_h>=0 && color_h<=COLOR;
+	int color_i where color_i>=0 && color_i<=COLOR;
+	int color_j where color_j>=0 && color_j<=COLOR;
+
+	normal start final node A{
+		// Constraint: the color for node A cannot be the same as the colors of node B,C,F.
+		color_a!=color_b && color_a!=color_c && color_a!=color_f; 
+	}
+	/* For each of the following node, the same type of constraint applies
+	 * that is the color of a particular node cannot be equal to  
+	 * the colors of its adjacent nodes. See the example above for node A.
+	 *
+	 * Now completes this specification.
+	 */
+	normal final node B{}
+	normal final node C{}
+	normal final node D{}
+	normal final node E{}
+	normal final node F{}
+	normal final node G{}
+	normal final node H{}
+	normal final node I{}
+	normal final node J{}
+
+	//outter structure
+	edge { A <-> B,C,F }
+	edge { B <-> A,G,D }
+	edge { D <-> B,I,E }
+	edge { E <-> D,J,C }
+	edge { C <-> A,H,E }
+	
+	//inner structure
+	edge { F <-> A,I,J }
+	edge { G <-> B,H,J }
+	edge { H <-> C,G,I }
+	edge { I <-> D,F,H }
+	edge { J <-> E,G,F }
+
+	goal{
+		/* You need to think about its path length and path condition 
+		 * Hint: your path should traverse each node at least once 
+		 * in order to satisfy the constraint of each node.
+		 */
+		pathlength <= 20;
+	}
+
+}

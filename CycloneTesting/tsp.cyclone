@@ -1,0 +1,68 @@
+/**
+ * Travelling Salesman Problem (TSP)
+ * A weighted graph representing cities and distances between them.
+ * Goal: Find the shortest route that visits all cities exactly once and returns to start.
+ */
+
+graph TSP {
+
+    // Track which cities have been visited
+    int visitedA = 0 where visitedA >= 0 && visitedA <= 1;
+    int visitedB = 0 where visitedB >= 0 && visitedB <= 1;
+    int visitedC = 0 where visitedC >= 0 && visitedC <= 1;
+    int visitedD = 0 where visitedD >= 0 && visitedD <= 1;
+    int visitedE = 0 where visitedE >= 0 && visitedE <= 1;
+    
+    // Track total distance traveled
+    int totalDistance = 0;
+
+    abstract start node CityA {}
+    
+    abstract node CityB {}
+    
+    abstract node CityC {}
+    
+    abstract node CityD {}
+    
+    abstract final node CityE {}
+
+    // Bidirectional edges with distances
+    edge { CityA -> CityB on "10" }
+    edge { CityB -> CityA on "10" }
+    
+    edge { CityA -> CityC on "15" }
+    edge { CityC -> CityA on "15" }
+    
+    edge { CityA -> CityD on "20" }
+    edge { CityD -> CityA on "20" }
+    
+    edge { CityB -> CityC on "35" }
+    edge { CityC -> CityB on "35" }
+    
+    edge { CityB -> CityD on "25" }
+    edge { CityD -> CityB on "25" }
+    
+    edge { CityC -> CityD on "30" }
+    edge { CityD -> CityC on "30" }
+    
+    edge { CityB -> CityE on "12" }
+    edge { CityE -> CityB on "12" }
+    
+    edge { CityD -> CityE on "18" }
+    edge { CityE -> CityD on "18" }
+    
+    edge { CityC -> CityE on "22" }
+    edge { CityE -> CityC on "22" }
+    
+    edge { CityA -> CityE on "28" }
+    edge { CityE -> CityA on "28" }
+
+    goal {
+        /**
+         * Find all possible paths visiting all cities
+         * Path length should visit all 5 cities and return to start
+         */
+        enumerate for 6
+    }
+
+}

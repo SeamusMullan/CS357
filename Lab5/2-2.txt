@@ -1,0 +1,9 @@
+Read bottom to top.
+
+N=qD+r        // Simplification
+N=qD-D+r+D    // A
+r-=D
+N=qD-D
+N=(q-1)D+r      // Assignment (A)
+q++
+N=qD+r
