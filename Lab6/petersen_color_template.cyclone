@@ -7,7 +7,7 @@
 option-trace=true;
 graph PetersonGraphColor{
 	//the number of possible colors. Range: 0 - 2.
-	const int COLOR = 2;
+	const int COLOR = 2; // 2 works (3 colours), 1 doesn't (2 colours)
 
 	/* 
 	 * The following where clauses make sure each node (in the graph) 
@@ -34,15 +34,33 @@ graph PetersonGraphColor{
 	 *
 	 * Now completes this specification.
 	 */
-	normal final node B{}
-	normal final node C{}
-	normal final node D{}
-	normal final node E{}
-	normal final node F{}
-	normal final node G{}
-	normal final node H{}
-	normal final node I{}
-	normal final node J{}
+	normal final node B{
+		color_b!=color_a && color_b!=color_d && color_b!=color_g;
+	}
+	normal final node C{
+		color_c!=color_a && color_c!=color_e && color_c!=color_h;
+	}
+	normal final node D{
+		color_d!=color_b && color_d!=color_e && color_d!=color_i;
+	}
+	normal final node E{
+		color_e!=color_c && color_e!=color_d && color_e!=color_j;
+	}
+	normal final node F{
+		color_f!=color_a && color_f!=color_i && color_f!=color_j;
+	}
+	normal final node G{
+		color_g!=color_b && color_g!=color_h && color_g!=color_j;
+	}
+	normal final node H{
+		color_h!=color_c && color_h!=color_g && color_h!=color_i;
+	}
+	normal final node I{
+		color_i!=color_d && color_i!=color_f && color_i!=color_h;
+	}
+	normal final node J{
+		color_j!=color_e && color_j!=color_f && color_j!=color_g;
+	}
 
 	//outter structure
 	edge { A <-> B,C,F }
@@ -63,7 +81,13 @@ graph PetersonGraphColor{
 		 * Hint: your path should traverse each node at least once 
 		 * in order to satisfy the constraint of each node.
 		 */
-		pathlength <= 20;
+		//pathlength <= 20;
+
+		// only visit each node once
+		check for 9 condition(
+			A^{1} && B^{1} && C^{1} && D^{1} && E^{1} && F^{1} && G^{1} && H^{1} && I^{1} && J^{1}
+		)
+		reach (A,B,C,D,E,F,G,H,I,J)
 	}
 
 }

@@ -1,0 +1,55 @@
+/*
+* Dot trace for G
+* [Time Stamp]:14:17:08, Nov-12-2025
+* [Location]:/Users/seamusmullan/GitHub/CS357/Lab6/trace/ifelse.dot
+* [States]:4
+* S S0 S1 S2 
+* [Trans]:4
+* [Start State]:S0
+* [Final State(s)]:
+*S 
+* [Trace Length]:3 
+*/
+
+
+
+
+digraph G { 
+
+
+
+	 rankdir="LR"
+
+
+
+label="G \n 14:17:08, Nov-12-2025"
+labelloc=" b " ;
+labeljust=" c ";
+	n0 [color="black", style="rounded, filled" , fillcolor="pink" , shape="rect", label= < 
+ 		 <table border='0' cellborder='0' style='rounded'> 
+			 <tr><td align="center" colspan="2" > <b>[0] @S0</b></td></tr>
+			 <tr><td align="center">a : </td><td>2</td></tr> 
+			 <tr><td align="center">b : </td><td>1</td></tr> 
+			 <tr><td align="center">c : </td><td>0</td></tr> 
+		 </table> > ]
+	n1 [color="black", style="rounded, filled" , fillcolor="orange" , shape="rect", label= < 
+ 		 <table border='0' cellborder='0' style='rounded'> 
+			 <tr><td align="center" colspan="2" > <b>[1] @S1</b></td></tr>
+			 <tr><td align="center">a : </td><td>2</td></tr> 
+			 <tr><td align="center">b : </td><td>1</td></tr> 
+			 <tr><td align="center">c : </td><td>2</td></tr> 
+		 </table> > ]
+	n2 [color="black", style="rounded, filled" , fillcolor="orange" , shape="rect", label= < 
+ 		 <table border='0' cellborder='0' style='rounded'> 
+			 <tr><td align="center" colspan="2" > <b>[2] @S</b></td></tr>
+			 <tr><td align="center">a : </td><td>2</td></tr> 
+			 <tr><td align="center">b : </td><td>1</td></tr> 
+			 <tr><td align="center">c : </td><td>2</td></tr> 
+		 </table> > ]
+
+
+
+
+	n0->n1->n2
+ } 
+

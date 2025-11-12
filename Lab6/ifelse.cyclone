@@ -7,4 +7,30 @@
     [c = max(a,b)]
 */
 
+option-trace=true;
+graph G {
 
+    int a;
+    int b;
+    int c; // represents the max value
+
+    start normal state S0{} // the if
+    normal state S1{c=a;} // then branch
+    normal state S2{c=b;} // else branch
+    final state S{} // join
+
+    edge {S0 -> S1 where a > b; }
+    edge {S0 -> S2 where a <= b; }
+    edge {S1 -> S}
+    edge {S2 -> S}
+
+    goal {
+        // check for a path where a>b going through S1
+        // OR
+        // check for a path where a<=b going through S2
+        assert (initial(a) > 0) && (initial(b) > 0);
+        assert !(( c==a && a>b ) || ( c==b && a<=b ));
+        check for 2
+    }
+
+}

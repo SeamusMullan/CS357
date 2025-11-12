@@ -1,4 +1,7 @@
 /*
+    loop over y, add 1 until y = x
+    a as loop counter/condition thingy
+
     [x >=0]
     a = x;
     y = 0;
@@ -8,3 +11,31 @@
     }
     [x = y]
 */
+
+option-trace=true;
+graph G {
+
+    int x where x>=0;
+    int y;
+    int a;
+
+    start normal state S0{a = x; y = 0;} // while
+    normal state S1{y = y + 1; a = a - 1;} // body (adding n stuff)
+    final normal state S{x=y;} // exit
+
+    edge {S0 -> S1 where a != 0; }
+    edge {S1 -> S1 where a != 0; }
+    edge {S0 -> S where a == 0; }
+    edge {S1 -> S where a == 0; }
+
+    // since we basically swap the values 1 by 1, the sum is da same
+    invariant loop_inv{ a + y == x;}
+
+    goal {
+        // at the end, x should equal y
+        // ! to make sure theres nothing else funky
+        assert !(initial(a) == y );
+        check upto 10
+    }
+
+}
