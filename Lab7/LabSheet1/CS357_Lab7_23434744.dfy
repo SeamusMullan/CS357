@@ -126,14 +126,17 @@ method A1(x: int, y: int) returns (r: int)
 
 method swap(a: array<int>, i: nat, j: nat)
     modifies a
-
-    // requires relationship between i and a.Length
-    // requires relationship between j and a.Length
+    // make sure the indices are in the bloody array
+    requires i < a.Length && j < a.Length
 
     ensures a[i] == old(a[j])
     ensures a[j] == old(a[i])
 {
-    // todo
+    // make a temp
+    var tmp := a[i];
+    // swap values
+    a[i] := a[j];
+    a[j] := tmp;
 }
 
 method {:main} TestSwap()
