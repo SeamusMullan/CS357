@@ -7,7 +7,7 @@
 option-trace=true;
 graph PetersonGraphColor{
 	//the number of possible colors. Range: 0 - 2.
-	const int COLOR = 2; // 2 works (3 colours), 1 doesn't (2 colours)
+	const int COLOR = 1; // 2 works (3 colours), 1 doesn't (2 colours)
 
 	/* 
 	 * The following where clauses make sure each node (in the graph) 

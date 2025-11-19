@@ -1,0 +1,9 @@
+LabSheet1/obj
+*.csproj
+*.cs
+*.json
+*.pdb
+*.dll
+*.exe
+obj
+bin
