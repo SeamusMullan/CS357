@@ -56,6 +56,7 @@ method FibIter(n: nat) returns (x: nat)
 Write and verify a method which finds the index pointing to the smallest element in an array. You might find it useful to look at the binary search pre- and postconditions from the previous lab.
 */
 method Smallest(a: array<int>) returns (minIndex: nat)
+requires a.Length > 0 // silly daphny needs to know not to run on empty arrays
 ensures 0 <= minIndex < a.Length // tis in the array
 ensures forall k :: 0 <= k < a.Length ==> a[minIndex] <= a[k] // make sure its the smallest by the end
 {
@@ -64,8 +65,9 @@ ensures forall k :: 0 <= k < a.Length ==> a[minIndex] <= a[k] // make sure its t
     var i := 0;
     while i < a.Length
         invariant 0 <= i <= a.Length
+        invariant 0 <= minIndex < a.Length
         invariant 0 <= minIndex <= i // we cant have the index be in the future now can we
-        invariant forall j :: 0 <= j < i ==> a[minIndex] < a[j] // make sure minIndex is smallest up to i
+        invariant forall j :: 0 <= j < i ==> a[minIndex] <= a[j] // make sure minIndex is smallest up to i
     {
         if a[i] < a[minIndex] {
             minIndex := i;
@@ -74,19 +76,38 @@ ensures forall k :: 0 <= k < a.Length ==> a[minIndex] <= a[k] // make sure its t
     }
     return minIndex;
 }
+
+
 // Q4
 /*
-Write a method Filter which takes an array aa and a predicate PP as arguments, then builds a sequence of all the elements in aa satisfying PP.
+Write a method Filter which takes an array a and a predicate P as arguments, then builds a sequence of all the elements in a satisfying P.
 For example, if a = [1, 2, 3, 4] then Filter(a, IsEven) should return [2, 4].
 Prove the following:
-    All the elements of the output sequence satisfy PP.
-    If the output sequence is empty, then no element in the array aa satisfied PP.
-    The output sequence only contains elements from aa—that is, prove multiset(s) <= multiset(a[..]).
+    All the elements of the output sequence satisfy P.
+    If the output sequence is empty, then no element in the array a satisfied P.
+    The output sequence only contains elements from a — that is, prove multiset(s) <= multiset(a[..]).
 
 Explain in a comment above the method why this might not be enough to fully specify a filter method and ensure it works as intended.
 */
 
 method Filter<T>(a: array<T>, P: T -> bool) returns (s: seq<T>)
+requires a.Length > 0
+ensures forall k :: k in s ==> P(k) // ensure P for all outputs
 {
-    // todo
+    var i := 0;
+    var out : seq<T> := []; // make the empty seq
+
+    while i < a.Length
+        invariant 0 <= i <= a.Length
+        invariant forall j :: j in out ==> P(j)
+    {
+        if (P(a[i]))
+        {
+            // is valid, add to output
+            out := out + [a[i]];
+        }
+        i := i+1;  
+    }
+
+    return out;
 }
