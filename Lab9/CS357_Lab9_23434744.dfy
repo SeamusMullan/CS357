@@ -91,23 +91,25 @@ Explain in a comment above the method why this might not be enough to fully spec
 */
 
 method Filter<T>(a: array<T>, P: T -> bool) returns (s: seq<T>)
-requires a.Length > 0
 ensures forall k :: k in s ==> P(k) // ensure P for all outputs
+ensures multiset(s) <= multiset(a[..])
+ensures |s| == 0 ==> forall x :: 0 <= x < a.Length ==> !P(a[x])
 {
     var i := 0;
-    var out : seq<T> := []; // make the empty seq
+    s := []; // make the empty seq
 
     while i < a.Length
         invariant 0 <= i <= a.Length
-        invariant forall j :: j in out ==> P(j)
+        invariant forall j :: j in s ==> P(j)
+        invariant multiset(s) <= multiset(a[..i])
+        invariant |s| == 0 ==> forall q :: 0 <= q < i ==> !P(a[q])
     {
         if (P(a[i]))
         {
             // is valid, add to output
-            out := out + [a[i]];
+            s := s + [a[i]];
         }
         i := i+1;  
     }
-
-    return out;
+    return s;
 }
