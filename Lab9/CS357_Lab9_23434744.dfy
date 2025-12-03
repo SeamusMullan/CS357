@@ -3,7 +3,8 @@
 
 // Q1
 /*
-Write a method that computes the sum of the first n natural numbers without using multiplication and prove that the result is equal to the nth triangle number n(n+1)/2n(n+1)/2.
+Write a method that computes the sum of the first n natural numbers without using multiplication and 
+prove that the result is equal to the nth triangle number n(n+1)/2n(n+1)/2.
 */
 method SumFirst(n: nat) returns (sum: nat)
     ensures sum == n * (n + 1) / 2
@@ -21,8 +22,10 @@ method SumFirst(n: nat) returns (sum: nat)
 
 // Q2
 /*
-The Fibonacci sequence begins with the numbers 0 and 1. To compute the next number in the sequence, sum the previous two. The sequence therefore continues as 0,1,1,2,3,5,8,…0,1,1,2,3,5,8,….
-Write a method which iteratively computes the nth Fibonacci number without any recursive calls and verify that it is equal to the mathematical definition.
+The Fibonacci sequence begins with the numbers 0 and 1.
+To compute the next number in the sequence, sum the previous two. The sequence therefore continues as 0,1,1,2,3,5,8,…0,1,1,2,3,5,8,….
+Write a method which iteratively computes the nth Fibonacci number without any recursive calls
+and verify that it is equal to the mathematical definition.
  */
 function Fib(n: nat): nat
 {
@@ -53,7 +56,8 @@ method FibIter(n: nat) returns (x: nat)
 
 // Q3
 /*
-Write and verify a method which finds the index pointing to the smallest element in an array. You might find it useful to look at the binary search pre- and postconditions from the previous lab.
+Write and verify a method which finds the index pointing to the smallest element in an array.
+You might find it useful to look at the binary search pre- and postconditions from the previous lab.
 */
 method Smallest(a: array<int>) returns (minIndex: nat)
 requires a.Length > 0 // silly daphny needs to know not to run on empty arrays
@@ -90,7 +94,12 @@ Prove the following:
 Explain in a comment above the method why this might not be enough to fully specify a filter method and ensure it works as intended.
 */
 
+
+/*
+Not perfect because this implementation of the method does not check if EVERY valid item from a is in s
+ */
 method Filter<T>(a: array<T>, P: T -> bool) returns (s: seq<T>)
+requires a[..] == a[..a.Length]
 ensures forall k :: k in s ==> P(k) // ensure P for all outputs
 ensures multiset(s) <= multiset(a[..])
 ensures |s| == 0 ==> forall x :: 0 <= x < a.Length ==> !P(a[x])

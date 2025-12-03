@@ -128,6 +128,7 @@ method swap(a: array<int>, i: nat, j: nat)
     modifies a
     // make sure the indices are in the bloody array
     requires i < a.Length && j < a.Length
+    requires i >= 0 && j >= 0
 
     ensures a[i] == old(a[j])
     ensures a[j] == old(a[i])
